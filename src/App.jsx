@@ -1,55 +1,49 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { PostComponent } from "./post"
+import samplePosts from "./samplePost";
+
 
 // import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0);
-  const [count2, setCount2] = useState(0);
 
+export default function App() {
 
-  function increase(){
-    setCount(c => c + 1);
+  const [posts, setPosts] = useState([]);
+  const [index, setIndex] = useState(0);
+
+  const postComponets = posts.map(post => <PostComponent
+     
+    firstname={post.firstname}
+    subtitle={post.subtitle}
+    time={post.time}
+    image={post.image}
+    description={post.description}
+  />)
+
+  function addPost() {
+  if (index < samplePosts.length) {
+    setPosts([...posts, samplePosts[index]]);
+    setIndex(index + 1);
+  } else {
+    alert("No more sample posts to add!");
   }
+}
 
-  function decrease(){
-    setCount2(c => c - 1);
-  }
-
-
-  return <div>
-    <Counter count = {count} count2 = {count2} />
-    <button onClick={increase}> notification</button>
-    <button onClick={decrease}> home </button>
-  </div>
+  return (
+    <div style={{background: "#dfe6e9", height: "100vh", }}>
+      <button onClick={addPost}>Add Post</button>
+      <div style={{display: "flex", justifyContent: "center"}}>
+        <div>
+          {postComponets}
+          <br />
+          
+        </div>
+      </div>
+      <br />
+    </div>
     
-
+    
+  )
   
 }
 
-function Counter(props){
-
-  // useEffect(function(){
-  //   console.log("mount");
-
-  //   return function(){
-  //     console.log("unmount");
-  //   }
-  // }, []);
-
-  useEffect(function(){
-    console.log("count has changed");
-
-    return function(){
-      console.log("cleanup inside second effect ");
-    }
-  }, [props.count])
-
-  return <div>
-    Counter1 {props.count} <br />
-    Counter2 {props.count2} <br />
-  </div>
-
-
-}
-
-export default App
