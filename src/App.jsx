@@ -35,11 +35,8 @@ export default function App() {
       <div style={{display: "flex", justifyContent: "center"}}>
         <div>
           {postComponets}
-          <br />
-          
         </div>
       </div>
-      <br />
     </div>
     
     
